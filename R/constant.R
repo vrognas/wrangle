@@ -1,21 +1,21 @@
 #' Identify Constant Features of an Object
-#' 
+#'
 #' Identifies constant features of an object.  Generic, with method for data.frame.
-#' 
+#'
 #' @export
 #' @keywords internal
 #' @family constant
 #' @param x object
 #' @param ... passed arguments
-constant <- function(x,...)UseMethod('constant')
+constant <- function(x, ...) UseMethod('constant')
 
 #' Identify Constant Features of a Data Frame
-#' 
-#' Returns columns of a data.frame whose values do not vary within subsets 
-#' defined by columns named in \dots. Defaults to groups(x) if none supplied, 
+#'
+#' Returns columns of a data.frame whose values do not vary within subsets
+#' defined by columns named in \dots. Defaults to groups(x) if none supplied,
 #' or all columns otherwise.
-#' 
-#' 
+#'
+#'
 #' @export
 #' @family constant
 #' @param x object
@@ -40,25 +40,24 @@ constant <- function(x,...)UseMethod('constant')
 #' foo <-  group_by(foo, x)
 #' class(foo) <- c('foo', class(foo))
 #' stopifnot(identical(class(foo), class(constant(foo))))
-constant.data.frame <- function(x,...){
-  
+constant.data.frame <- function(x, ...) {
   theClass <- class(x)
 
   # determine the legitimate un-named arguments
   args <- quos(...)
-  args <- lapply(args,f_rhs)
+  args <- lapply(args, f_rhs)
   vars <- args[names(args) == '']
   vars <- sapply(vars, as.character)
-  if(!length(vars)) vars <- character(0) # else was named list
+  if (!length(vars)) vars <- character(0) # else was named list
   stopifnot(all(vars %in% names(x)))
-  tars <- setdiff(names(x),vars) # target vars to summarize
+  tars <- setdiff(names(x), vars) # target vars to summarize
   # reconcile group_vars() with supplied groups (vars)
-  
+
   # we consciously avoid group_by(),
   # which can change the class of the object
-  # instead, we invoke the explicit grouping 
+  # instead, we invoke the explicit grouping
   # mechanism mutate(.by)
-  
+
   # however, mutate(grouped_df, .by = ) is illegal.
   # thus, any reconciliation between vars and group_vars()
   # needs to defer to group_vars()
@@ -67,27 +66,34 @@ constant.data.frame <- function(x,...){
   # AND vars has length (implying attempted over-ride)
   # least restrictive reconciliation is to re-group with vars
   grouped <- inherits(x, 'grouped_df')
-  if(grouped && length(vars)) x %<>% group_by(across(all_of(vars)))
-  
+  if (grouped && length(vars)) x %<>% group_by(across(all_of(vars)))
+
   # regardless above, tars cannot include group_vars
   tars %<>% setdiff(group_vars(x))
- 
-  # capture names of columns where within-cell values 
+
+  # capture names of columns where within-cell values
   # are singular for all cells as defined by groups
   y <- data.frame() # placeholder
-  if( grouped) y <- mutate(x, across(all_of(tars), ~length(unique(.x)))) # already grouped
-  if(!grouped) y <- mutate(x, across(all_of(tars), ~length(unique(.x))), .by = all_of(vars))
-  
+  if (grouped) y <- mutate(x, across(all_of(tars), ~ length(unique(.x)))) # already grouped
+  if (!grouped)
+    y <- mutate(
+      x,
+      across(all_of(tars), ~ length(unique(.x))),
+      .by = all_of(vars)
+    )
+
   # test for singularities across groups, if any
-  y %<>% distinct %>% select(group_cols() | all_of(vars) | where(~ all(.x == 1))) 
+  y %<>%
+    distinct %>%
+    select(group_cols() | all_of(vars) | where(~ all(.x == 1)))
   nms <- names(y)
-  
+
   # recover the order of these as in x
   nms <- intersect(names(x), nms)
-  
+
   # limit x to just these columns
   x %<>% select(all_of(nms))
-  
+
   # find distinct combinations of values
   # but distinct() drops "decorated" from "decorated", "grouped_df"
   # unique() does not
@@ -97,10 +103,10 @@ constant.data.frame <- function(x,...){
 }
 
 # #' Identify Constant Features of a Grouped Data Frame
-# #' 
-# #' Returns columns of a grouped_df whose values do not vary within subsets defined by groups. 
+# #'
+# #' Returns columns of a grouped_df whose values do not vary within subsets defined by groups.
 # #' If any grouping arguments (dots) are supplied, existing groups are over-ridden.
-# #' 
+# #'
 # #' @export
 # #' @family constant
 # #' @param x object
@@ -120,4 +126,3 @@ constant.data.frame <- function(x,...){
 #   y <- group_by(y, !!!groups)
 #   y
 # }
-

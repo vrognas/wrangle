@@ -9,11 +9,11 @@
 #' @export
 #' @examples
 #' example(safe_join.data.frame)
-safe_join <- function(x, ...)UseMethod('safe_join')
+safe_join <- function(x, ...) UseMethod('safe_join')
 
 #' Join Data Frames Safely
-#' 
-#' Joins data frames safely. I.e., a left join that 
+#'
+#' Joins data frames safely. I.e., a left join that
 #' cannot alter row order or number.  Supports the
 #' case where you only intend to augment existing
 #' rows with additional columns and are expecting
@@ -25,7 +25,7 @@ safe_join <- function(x, ...)UseMethod('safe_join')
 #' @family safe_join
 #' @export
 #' @importFrom dplyr left_join
-#' @examples 
+#' @examples
 #' library(magrittr)
 #' x <- data.frame(code = c('a','b','c'), value = c(1:3))
 #' y <- data.frame(code = c('a','b','c'), roman = c('I','II','III'))
@@ -34,7 +34,7 @@ safe_join <- function(x, ...)UseMethod('safe_join')
 #' x %>% safe_join(rbind(y,y))
 #' )
 
-safe_join.data.frame <- function(x, y, ...){
+safe_join.data.frame <- function(x, y, ...) {
   x$safe_join <- 1:nrow(x)
   before <- x$safe_join
   z <- left_join(x, y, ...)
