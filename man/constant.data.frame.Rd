@@ -15,8 +15,8 @@
 data.frame (should be same class as x)
 }
 \description{
-Returns columns of a data.frame whose values do not vary within subsets 
-defined by columns named in \dots. Defaults to groups(x) if none supplied, 
+Returns columns of a data.frame whose values do not vary within subsets
+defined by columns named in \dots. Defaults to groups(x) if none supplied,
 or all columns otherwise.
 }
 \examples{

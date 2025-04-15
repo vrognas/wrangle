@@ -18,8 +18,8 @@ Shows unsorted elements.
 \code{\link{unsorted.data.frame}}
 
 Other unsorted: 
-\code{\link{misplaced.data.frame}()},
 \code{\link{misplaced}()},
+\code{\link{misplaced.data.frame}()},
 \code{\link{unsorted.data.frame}()}
 }
 \concept{unsorted}

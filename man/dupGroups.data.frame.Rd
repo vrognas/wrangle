@@ -2,7 +2,7 @@
 % Please edit documentation in R/wrangle.R
 \name{dupGroups.data.frame}
 \alias{dupGroups.data.frame}
-\title{Index records with with duplicate or duplicated values of grouping variables.}
+\title{Index records with duplicate or duplicated values of grouping variables.}
 \usage{
 \method{dupGroups}{data.frame}(x, ...)
 }
@@ -17,7 +17,7 @@ grouped_df
 logical
 }
 \description{
-Indexes records with with duplicate or duplicated values of grouping variables. If b follows a and and is the same, then b is a duplicate, a is duplicated, and both are shown.
+Indexes records with duplicate or duplicated values of grouping variables. If b follows a and and is the same, then b is a duplicate, a is duplicated, and both are shown.
 }
 \seealso{
 Other dupGroups: 

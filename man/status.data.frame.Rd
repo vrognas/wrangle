@@ -24,7 +24,7 @@ status(Theoph, Subject)
 status(group_by(Theoph, Subject, Time))
 }
 \seealso{
-\code{\link{na}} 
+\code{\link{na}}
 \code{\link{dup}}
 \code{\link{unsorted}}
 \code{\link{informative}}

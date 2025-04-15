@@ -14,7 +14,7 @@
 \item{...}{passed to dplyr::left_join}
 }
 \description{
-Joins data frames safely. I.e., a left join that 
+Joins data frames safely. I.e., a left join that
 cannot alter row order or number.  Supports the
 case where you only intend to augment existing
 rows with additional columns and are expecting

@@ -21,8 +21,8 @@ Extracts records whose relative positions would change if sorted, i.e. records t
 \code{\link{na}} \code{\link{dup}}
 
 Other unsorted: 
-\code{\link{misplaced.data.frame}()},
 \code{\link{misplaced}()},
+\code{\link{misplaced.data.frame}()},
 \code{\link{unsorted}()}
 }
 \concept{unsorted}

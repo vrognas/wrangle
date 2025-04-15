@@ -17,8 +17,8 @@ Shows misplaced elements.
 \seealso{
 Other unsorted: 
 \code{\link{misplaced.data.frame}()},
-\code{\link{unsorted.data.frame}()},
-\code{\link{unsorted}()}
+\code{\link{unsorted}()},
+\code{\link{unsorted.data.frame}()}
 }
 \concept{unsorted}
 \keyword{internal}

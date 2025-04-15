@@ -22,7 +22,7 @@ Indexes records whose relative positions would change if sorted, i.e. records th
 
 Other unsorted: 
 \code{\link{misplaced}()},
-\code{\link{unsorted.data.frame}()},
-\code{\link{unsorted}()}
+\code{\link{unsorted}()},
+\code{\link{unsorted.data.frame}()}
 }
 \concept{unsorted}
